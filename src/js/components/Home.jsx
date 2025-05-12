@@ -1,28 +1,30 @@
-import React from "react";
+import React, { useState } from "react";
+import { TaskInput } from "./TaskInput";
+import { TaskList } from "./TaskList";
 
-//include images into your bundle
-import rigoImage from "../../img/rigo-baby.jpg";
+export const Home = () => {
+  const [newTask, setNewTask] = useState("");
+  const [taskList, setTaskList] = useState([]);
 
-//create your first component
-const Home = () => {
-	return (
-		<div className="text-center">
-            
+  const AddTask = () => {
+    if (newTask.trim() === "") return;
+    setTaskList([...taskList, newTask]);
+    setNewTask("");
+  };
 
-			<h1 className="text-center mt-5">Hello Rigo!</h1>
-			<p>
-				<img src={rigoImage} />
-			</p>
-			<a href="#" className="btn btn-success">
-				If you see this green button... bootstrap is working...
-			</a>
-			<p>
-				Made by{" "}
-				<a href="http://www.4geeksacademy.com">4Geeks Academy</a>, with
-				love!
-			</p>
-		</div>
-	);
+  const handleDeleteTask = (index) => {
+    const updatedList = taskList.filter((_, i) => i !== index);
+    setTaskList(updatedList);
+  };
+
+  return (
+    <div className="container">
+      <TaskInput
+        value={newTask}
+        onChange={(e) => setNewTask(e.target.value)}
+        onAdd={AddTask}
+      />
+      <TaskList tasks={taskList} onDelete={handleDeleteTask} />
+    </div>
+  );
 };
-
-export default Home;
