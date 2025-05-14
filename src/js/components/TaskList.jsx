@@ -6,6 +6,7 @@ export const TaskList = ({ tasks, onDelete }) => {
       }
   return (
     <>
+      <p>Tares pendientes: {tasks.length}</p>
       {tasks.map((task, index) => (
         <div className="content-list" key={index}>
           <p className="content-list-p"><i className="fa-solid fa-arrow-right"></i> {task}</p>
